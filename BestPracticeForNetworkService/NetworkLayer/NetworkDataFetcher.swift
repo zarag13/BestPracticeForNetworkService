@@ -8,9 +8,9 @@
 import Foundation
 
 protocol NetworkDataFetcherProtocol {
-    func getImage(serachTerm: String?, complition: @escaping (Codable?) -> Void )
-    func postJSON(complition: @escaping (Any?) -> Void )
-    func getImage2(complition: @escaping (Data?) -> Void )
+    func getDataForSearch(serachTerm: String?, complition: @escaping (Codable?) -> Void )
+    func postData(complition: @escaping (Any?) -> Void )
+    func getImage(complition: @escaping (Data?) -> Void )
 }
 
 class NetworkDataFetcher: NetworkDataFetcherProtocol {
@@ -27,8 +27,8 @@ class NetworkDataFetcher: NetworkDataFetcherProtocol {
     }
     
     
-    //получаем картинку
-    func getImage(serachTerm: String?, complition: @escaping (Codable?) -> Void ) {
+    //получаем картинку по запросу слова
+    func getDataForSearch(serachTerm: String?, complition: @escaping (Codable?) -> Void ) {
         network.requestTask(searchTerm: serachTerm) { results in
             switch results {
             case .success(let data):
@@ -42,7 +42,9 @@ class NetworkDataFetcher: NetworkDataFetcherProtocol {
         }
     }
     
-    func postJSON(complition: @escaping (Any?) -> Void ) {
+    
+    //отправка данных + получение ответа от сервера
+    func postData(complition: @escaping (Any?) -> Void ) {
         network.requestTask(searchTerm: nil) { results in
             switch results {
             case .success(let data):
@@ -63,11 +65,12 @@ class NetworkDataFetcher: NetworkDataFetcherProtocol {
         }
     }
     
-    func getImage2(complition: @escaping (Data?) -> Void ) {
+    
+    //простая загрузка картинки по url
+    func getImage(complition: @escaping (Data?) -> Void ) {
         network.requestTask(searchTerm: nil) { results in
             switch results {
             case .success(let data):
-                //print(data)
                 complition(data)
                 
             case .failure(let error):

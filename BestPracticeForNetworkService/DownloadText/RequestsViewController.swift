@@ -67,7 +67,7 @@ class RequestsViewController: UIViewController {
     
     @objc func tupGetButton() {
         let get = networkManager.getNetworkDataFetcher()
-        get?.getImage(serachTerm: nil) { searchResults in
+        get?.getDataForSearch(serachTerm: nil) { searchResults in
             guard let fetchPhotos = searchResults as? [TestModelTable] else { return }
             
            print(fetchPhotos)
@@ -82,7 +82,7 @@ class RequestsViewController: UIViewController {
     
     @objc func tupPostButton() {
         let post = networkManager.postNetworkDataFetcher()
-        post?.postJSON(complition: { json in
+        post?.postData(complition: { json in
             guard let fetchPhotos = json else { return }
             print(fetchPhotos)
         })

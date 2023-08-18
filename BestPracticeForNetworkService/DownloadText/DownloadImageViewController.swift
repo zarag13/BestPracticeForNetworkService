@@ -56,7 +56,7 @@ class DownloadImageViewController: UIViewController {
     
     @objc func uploadImage() {
         let post = networkManager.postNetworkDataFetcher()
-        post?.postJSON(complition: { json in
+        post?.postData(complition: { json in
             guard let fetchPhotos = json else { return }
             print(fetchPhotos)
         })
@@ -67,7 +67,7 @@ class DownloadImageViewController: UIViewController {
         aactivityIndicator.startAnimating()
         
         let imageData = networkManager.getNetworkDataFetcher()
-        imageData?.getImage2(complition: { data in
+        imageData?.getImage(complition: { data in
             guard let data = data else { return }
             DispatchQueue.main.async {
                 self.aactivityIndicator.stopAnimating()
